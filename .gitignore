@@ -13,4 +13,5 @@ hs_err_pid*
 /target/*
 /bin/*
 /test-output/*
-.settings/*
+/.settings
+/target/
