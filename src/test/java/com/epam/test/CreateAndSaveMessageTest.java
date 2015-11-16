@@ -87,7 +87,7 @@ public class CreateAndSaveMessageTest {
 	 * @param text
 	 *            - text of the letter
 	 */
-	@Test(dataProvider = "newMailData", singleThreaded = true, groups = "selenium-test", dataProviderClass = TestData.class)
+	@Test(dataProvider = "newMailData", groups = "selenium-test", dataProviderClass = TestData.class)
 	public void saveMailTest(String to, String subject, String text) {
 		System.out.println("Test 2.1 Create a new message");
 		newMailPlace.pressButtonNewMail();
@@ -111,7 +111,7 @@ public class CreateAndSaveMessageTest {
 	 * @param text
 	 *            - text of the letter
 	 */
-	@Test(dataProvider = "newMailData", dependsOnMethods = "saveMailTest", singleThreaded = true, groups = "selenium-test", dataProviderClass = TestData.class)
+	@Test(dataProvider = "newMailData", dependsOnMethods = "saveMailTest", groups = "selenium-test", dataProviderClass = TestData.class)
 	public void checkDrafts(String to, String subject, String text) {
 		System.out.println(
 				"Test 3 Check stored emails\nRecipient = " + to + "\nSubject = " + subject + "\nText mail = " + text);
