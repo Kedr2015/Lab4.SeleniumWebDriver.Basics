@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
  *
  *         Main Mail page. Locators and work with them
  */
-public class MainMailPages {
+public class MainMailPage {
 
 	public WebDriver driver;// webdriver
 
@@ -19,7 +19,7 @@ public class MainMailPages {
 	 * @param driver
 	 *            Transfer driver instance in the constructor
 	 */
-	public MainMailPages(WebDriver driver) {
+	public MainMailPage(WebDriver driver) {
 		this.driver = driver;
 	}
 
@@ -43,7 +43,7 @@ public class MainMailPages {
 	 * 
 	 * @return - The presence of the Button New Mail on the page
 	 */
-	public boolean isNewMail() {
+	public boolean isNewMailDisplayed() {
 		try {
 			return driver.findElement(newMailButton).isDisplayed();
 		} catch (NoSuchElementException e) {

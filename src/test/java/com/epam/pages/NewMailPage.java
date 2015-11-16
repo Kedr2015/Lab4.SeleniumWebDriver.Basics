@@ -9,12 +9,12 @@ import org.openqa.selenium.WebDriver;
  *
  *         New Mail page. Locators and work with them
  */
-public class NewMailPages extends MainMailPages {
+public class NewMailPage extends MainMailPage {
 	/**
 	 * @param driver
 	 *            -webdriver Transfer driver instance in the constructor
 	 */
-	public NewMailPages(WebDriver driver) {
+	public NewMailPage(WebDriver driver) {
 		super(driver);
 	}
 

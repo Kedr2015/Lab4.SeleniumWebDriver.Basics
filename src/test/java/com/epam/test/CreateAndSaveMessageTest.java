@@ -5,15 +5,15 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterGroups;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.epam.date.TestData;
-import com.epam.pages.DraftsMailPages;
-import com.epam.pages.LoginPages;
-import com.epam.pages.NewMailPages;
+import com.epam.pages.DraftsMailPage;
+import com.epam.pages.LoginPage;
+import com.epam.pages.NewMailPage;
 
 /**
  * @author kedr
@@ -24,16 +24,16 @@ public class CreateAndSaveMessageTest {
 	// Initialization drivers
 	private WebDriver driver = new FirefoxDriver();
 	// Create an instance of the login page
-	LoginPages loginPlace = new LoginPages(driver);
+	LoginPage loginPlace = new LoginPage(driver);
 	// Create an instance new mail page
-	NewMailPages newMailPlace = new NewMailPages(driver);
+	NewMailPage newMailPlace = new NewMailPage(driver);
 	// Create an instance drafts mail page
-	DraftsMailPages DraftsMailPlace = new DraftsMailPages(driver);
+	DraftsMailPage DraftsMailPlace = new DraftsMailPage(driver);
 
 	/**
-	 * 
+	 *
 	 * The input data for the test.
-	 * 
+	 *
 	 * @return - the recipient, subject and text of the letter
 	 */
 	@DataProvider
@@ -47,7 +47,7 @@ public class CreateAndSaveMessageTest {
 	/**
 	 * Actions before starting the test class
 	 */
-	@BeforeClass
+	@BeforeGroups(groups = "selenium-test")
 	public void startBrowser() {
 		// Time waiting objects on the page
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -68,7 +68,7 @@ public class CreateAndSaveMessageTest {
 	/**
 	 * Actions after the test class
 	 */
-	@AfterClass
+	@AfterGroups(groups = "selenium-test")
 	public void closeBrowser() {
 		// Sign Out
 		newMailPlace.signOut();
@@ -87,7 +87,8 @@ public class CreateAndSaveMessageTest {
 	 * @param text
 	 *            - text of the letter
 	 */
-	@Test(dataProvider = "newMailData",singleThreaded = true)
+	// @Test(dataProvider = "newMailData",singleThreaded = true)
+	@Test(dataProvider = "newMailData", singleThreaded = true, groups = "selenium-test")
 	public void saveMailTest(String to, String subject, String text) {
 		System.out.println("Test 2.1 Create a new message");
 		newMailPlace.pressButtonNewMail();
@@ -111,12 +112,12 @@ public class CreateAndSaveMessageTest {
 	 * @param text
 	 *            - text of the letter
 	 */
-	@Test(dataProvider = "newMailData", dependsOnMethods = "saveMailTest",singleThreaded = true)
+	@Test(dataProvider = "newMailData", dependsOnMethods = "saveMailTest", singleThreaded = true, groups = "selenium-test")
 	public void checkDrafts(String to, String subject, String text) {
 		System.out.println(
 				"Test 3 Check stored emails\nRecipient = " + to + "\nSubject = " + subject + "\nText mail = " + text);
 		newMailPlace.openDrafts();
-		Assert.assertTrue(DraftsMailPlace.CheckForDrafts(subject, text),
+		Assert.assertTrue(DraftsMailPlace.checkForDrafts(subject, text),
 				"The draft has not been preserved\nWith options:\nRecipient = " + to + "\nSubject = " + subject
 						+ "\nText mail = " + text);
 	}

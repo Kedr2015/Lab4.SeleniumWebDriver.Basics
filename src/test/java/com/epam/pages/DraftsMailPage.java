@@ -7,12 +7,12 @@ import org.openqa.selenium.WebDriver;
 /**
  * @author kedr Drafts Mail page. Locators and work with them
  */
-public class DraftsMailPages extends MainMailPages {
+public class DraftsMailPage extends MainMailPage {
 	/**
 	 * @param driver
 	 *            -webdriver Transfer driver instance in the constructor
 	 */
-	public DraftsMailPages(WebDriver driver) {
+	public DraftsMailPage(WebDriver driver) {
 		super(driver);
 	}
 
@@ -28,7 +28,7 @@ public class DraftsMailPages extends MainMailPages {
 	 *            - text mail
 	 * @return - Availability of posts on the page
 	 */
-	public boolean CheckForDrafts(String subject, String text) {
+	public boolean checkForDrafts(String subject, String text) {
 		try {
 			return driver.findElement(By.xpath(String.format(identificationDraft, subject, text))).isEnabled();
 		} catch (NoSuchElementException e) {

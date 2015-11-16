@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
  *
  *         Login page. Locators and work with them
  */
-public class LoginPages {
+public class LoginPage {
 	private WebDriver driver;// webdriver
 
 	/**
@@ -18,7 +18,7 @@ public class LoginPages {
 	 * @param driver
 	 *            -webdriver
 	 */
-	public LoginPages(WebDriver driver) {
+	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 	}
 
@@ -36,7 +36,7 @@ public class LoginPages {
 	 * 
 	 * @return - The presence of the name field on the page
 	 */
-	public boolean isUserName() {
+	public boolean isUserNameDisplayed() {
 		try {
 			return driver.findElement(userNameLocator).isDisplayed();
 		} catch (NoSuchElementException e) {

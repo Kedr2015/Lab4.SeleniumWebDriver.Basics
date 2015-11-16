@@ -5,13 +5,13 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.epam.date.TestData;
-import com.epam.pages.LoginPages;
-import com.epam.pages.MainMailPages;
+import com.epam.pages.LoginPage;
+import com.epam.pages.MainMailPage;
 
 /**
  * @author kedr
@@ -22,14 +22,14 @@ public class LogoutTest {
 	// Initialization driver
 	private WebDriver driver = new FirefoxDriver();
 	// Create an instance of the Main Mail page
-	MainMailPages mailMailPlace = new MainMailPages(driver);
+	MainMailPage mailMailPlace = new MainMailPage(driver);
 	// Create an instance of the login page
-	LoginPages loginPlace = new LoginPages(driver);
+	LoginPage loginPlace = new LoginPage(driver);
 
 	/**
 	 * Actions before starting the test class
 	 */
-	@BeforeClass
+	@BeforeMethod
 	public void startBrowser() {
 		// Time waiting objects on the page
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -50,7 +50,7 @@ public class LogoutTest {
 	/**
 	 * Actions after the test class
 	 */
-	@AfterClass
+	@AfterMethod
 	public void closeBrowser() {
 		// Close Browser
 		driver.close();
@@ -63,6 +63,6 @@ public class LogoutTest {
 	public void logout() {
 		System.out.println("Test 4 Logout from system");
 		mailMailPlace.signOut();
-		Assert.assertTrue(loginPlace.isUserName(), "Logon failure occurred");
+		Assert.assertTrue(loginPlace.isUserNameDisplayed(), "Logon failure occurred");
 	}
 }
