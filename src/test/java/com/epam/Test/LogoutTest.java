@@ -19,48 +19,50 @@ import com.epam.date.TestData;
  *         The test checks the Logout system
  */
 public class LogoutTest {
+	// Initialization driver
+	private WebDriver driver = new FirefoxDriver();
+	// Create an instance of the Main Mail page
+	MainMailPages mailMailPlace = new MainMailPages(driver);
+	// Create an instance of the login page
+	LoginPages loginPlace = new LoginPages(driver);
 
-    private WebDriver driver = new FirefoxDriver();// Initialization driver
-    MainMailPages mailMailPlace = new MainMailPages(driver);// Create an
-							    // instance of the
-							    // Main Mail page
-    LoginPages loginPlace = new LoginPages(driver);// Create an instance of the
-						   // login page
+	/**
+	 * Actions before starting the test class
+	 */
+	@BeforeClass
+	public void startBrowser() {
+		// Time waiting objects on the page
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		// Open the window
+		driver.manage().window().maximize();
+		// Going to pages
+		driver.get(TestData.url);
+		// Enter login
+		loginPlace.inputName(TestData.login);
+		// Enter password
+		loginPlace.inputPassword(TestData.password);
+		// Log in
+		loginPlace.pressButtonInput();
+		// Go to home page mail
+		loginPlace.pressButtonOpenMail();
+	}
 
-    /**
-     * Actions before starting the test class
-     */
-    @BeforeClass
-    public void startBrowser() {
-	driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);// Time
-									// waiting
-									// objects
-									// on
-									// the
-									// page
-	driver.manage().window().maximize();// Open the window
-	driver.get(TestData.url);// Going to pages
-	loginPlace.inputName(TestData.login);// Enter login
-	loginPlace.inputPassword(TestData.password);// Enter password
-	loginPlace.pressButtonInput();// Log in
-	loginPlace.pressButtonOpenMail();// Go to home page mail
-    }
+	/**
+	 * Actions after the test class
+	 */
+	@AfterClass
+	public void closeBrowser() {
+		// Close Browser
+		driver.close();
+	}
 
-    /**
-     * Actions after the test class
-     */
-    @AfterClass
-    public void closeBrowser() {
-	driver.close();// Close Browser
-    }
-
-    /**
-     * The test checks the Logout system
-     */
-    @Test
-    public void logout() {
-	System.out.println("Test 4 Logout from system");
-	mailMailPlace.signOut();
-	Assert.assertTrue(loginPlace.isuserName(), "Logon failure occurred");
-    }
+	/**
+	 * The test checks the Logout system
+	 */
+	@Test
+	public void logout() {
+		System.out.println("Test 4 Logout from system");
+		mailMailPlace.signOut();
+		Assert.assertTrue(loginPlace.isUserName(), "Logon failure occurred");
+	}
 }
