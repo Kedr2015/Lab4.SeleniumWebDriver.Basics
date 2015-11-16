@@ -7,7 +7,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterGroups;
 import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.epam.date.TestData;
@@ -30,19 +29,20 @@ public class CreateAndSaveMessageTest {
 	// Create an instance drafts mail page
 	DraftsMailPage DraftsMailPlace = new DraftsMailPage(driver);
 
-	/**
-	 *
-	 * The input data for the test.
-	 *
-	 * @return - the recipient, subject and text of the letter
-	 */
-	@DataProvider
-	public static Object[][] newMailData() {
-		return new Object[][] { { "varchenko.nikita.v@mail.ru", "Test2", "Test3" },
-				{ "varchenko.nikita.v@gmail.com", "Test2Test", "Test3Test" }
-
-		};
-	}
+	// /**
+	// *
+	// * The input data for the test.
+	// *
+	// * @return - the recipient, subject and text of the letter
+	// */
+	// @DataProvider
+	// public static Object[][] newMailData() {
+	// return new Object[][] { { "varchenko.nikita.v@mail.ru", "Test2", "Test3"
+	// },
+	// { "varchenko.nikita.v@gmail.com", "Test2Test", "Test3Test" }
+	//
+	// };
+	// }
 
 	/**
 	 * Actions before starting the test class
@@ -87,8 +87,7 @@ public class CreateAndSaveMessageTest {
 	 * @param text
 	 *            - text of the letter
 	 */
-	// @Test(dataProvider = "newMailData",singleThreaded = true)
-	@Test(dataProvider = "newMailData", singleThreaded = true, groups = "selenium-test")
+	@Test(dataProvider = "newMailData", singleThreaded = true, groups = "selenium-test", dataProviderClass = TestData.class)
 	public void saveMailTest(String to, String subject, String text) {
 		System.out.println("Test 2.1 Create a new message");
 		newMailPlace.pressButtonNewMail();
@@ -112,7 +111,7 @@ public class CreateAndSaveMessageTest {
 	 * @param text
 	 *            - text of the letter
 	 */
-	@Test(dataProvider = "newMailData", dependsOnMethods = "saveMailTest", singleThreaded = true, groups = "selenium-test")
+	@Test(dataProvider = "newMailData", dependsOnMethods = "saveMailTest", singleThreaded = true, groups = "selenium-test", dataProviderClass = TestData.class)
 	public void checkDrafts(String to, String subject, String text) {
 		System.out.println(
 				"Test 3 Check stored emails\nRecipient = " + to + "\nSubject = " + subject + "\nText mail = " + text);
