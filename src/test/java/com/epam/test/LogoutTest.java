@@ -5,8 +5,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.epam.date.TestData;
@@ -19,18 +19,21 @@ import com.epam.pages.MainMailPage;
  *         The test checks the Logout system
  */
 public class LogoutTest {
-	// Initialization driver
-	private WebDriver driver = new FirefoxDriver();
-	// Create an instance of the Main Mail page
-	MainMailPage mailMailPlace = new MainMailPage(driver);
-	// Create an instance of the login page
-	LoginPage loginPlace = new LoginPage(driver);
+	private WebDriver driver;
+	MainMailPage mailMailPlace;
+	LoginPage loginPlace;
 
 	/**
 	 * Actions before starting the test class
 	 */
-	@BeforeMethod
+	@BeforeTest
 	public void startBrowser() {
+		// Initialization driver
+		driver = new FirefoxDriver();
+		// Create an instance of the Main Mail page
+		mailMailPlace = new MainMailPage(driver);
+		// Create an instance of the login page
+		loginPlace = new LoginPage(driver);
 		// Time waiting objects on the page
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		// Open the window
@@ -50,7 +53,7 @@ public class LogoutTest {
 	/**
 	 * Actions after the test class
 	 */
-	@AfterMethod
+	@AfterTest
 	public void closeBrowser() {
 		// Close Browser
 		driver.close();

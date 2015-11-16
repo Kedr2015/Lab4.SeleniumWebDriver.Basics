@@ -5,13 +5,14 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterGroups;
-import org.testng.annotations.BeforeGroups;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.epam.date.TestData;
 import com.epam.pages.DraftsMailPage;
 import com.epam.pages.LoginPage;
+import com.epam.pages.MainMailPage;
 import com.epam.pages.NewMailPage;
 
 /**
@@ -20,35 +21,30 @@ import com.epam.pages.NewMailPage;
  *         The test checks the Logout system
  */
 public class CreateAndSaveMessageTest {
-	// Initialization drivers
-	private WebDriver driver = new FirefoxDriver();
-	// Create an instance of the login page
-	LoginPage loginPlace = new LoginPage(driver);
-	// Create an instance new mail page
-	NewMailPage newMailPlace = new NewMailPage(driver);
-	// Create an instance drafts mail page
-	DraftsMailPage DraftsMailPlace = new DraftsMailPage(driver);
 
-	// /**
-	// *
-	// * The input data for the test.
-	// *
-	// * @return - the recipient, subject and text of the letter
-	// */
-	// @DataProvider
-	// public static Object[][] newMailData() {
-	// return new Object[][] { { "varchenko.nikita.v@mail.ru", "Test2", "Test3"
-	// },
-	// { "varchenko.nikita.v@gmail.com", "Test2Test", "Test3Test" }
-	//
-	// };
-	// }
+	private WebDriver driver;
+	MainMailPage mailMailPlace;
+	LoginPage loginPlace;
+
+	// Create an instance new mail page
+	NewMailPage newMailPlace;
+	// Create an instance drafts mail page
+	DraftsMailPage DraftsMailPlace;
 
 	/**
 	 * Actions before starting the test class
 	 */
-	@BeforeGroups(groups = "selenium-test")
+	@BeforeTest
 	public void startBrowser() {
+		// Initialization driver
+		driver = new FirefoxDriver();
+		// Create an instance new mail page
+		newMailPlace = new NewMailPage(driver);
+		// Create an instance drafts mail page
+		DraftsMailPlace = new DraftsMailPage(driver);
+		// Create an instance of the login page
+		loginPlace = new LoginPage(driver);
+
 		// Time waiting objects on the page
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		// Open the window
@@ -68,7 +64,7 @@ public class CreateAndSaveMessageTest {
 	/**
 	 * Actions after the test class
 	 */
-	@AfterGroups(groups = "selenium-test")
+	@AfterTest
 	public void closeBrowser() {
 		// Sign Out
 		newMailPlace.signOut();
@@ -87,7 +83,7 @@ public class CreateAndSaveMessageTest {
 	 * @param text
 	 *            - text of the letter
 	 */
-	@Test(dataProvider = "newMailData", groups = "selenium-test", dataProviderClass = TestData.class)
+	@Test(dataProvider = "newMailData", dataProviderClass = TestData.class)
 	public void saveMailTest(String to, String subject, String text) {
 		System.out.println("Test 2.1 Create a new message");
 		newMailPlace.pressButtonNewMail();
@@ -111,7 +107,7 @@ public class CreateAndSaveMessageTest {
 	 * @param text
 	 *            - text of the letter
 	 */
-	@Test(dataProvider = "newMailData", dependsOnMethods = "saveMailTest", groups = "selenium-test", dataProviderClass = TestData.class)
+	@Test(dataProvider = "newMailData", dependsOnMethods = "saveMailTest", dataProviderClass = TestData.class)
 	public void checkDrafts(String to, String subject, String text) {
 		System.out.println(
 				"Test 3 Check stored emails\nRecipient = " + to + "\nSubject = " + subject + "\nText mail = " + text);

@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Default suite">
-	<test verbose="2" name="Default test" parallel="methods"
-		thread-count="3">
+<suite name="Default suite" parallel="tests" thread-count="3">
+	<test name="Default test">
 		<classes>
 			<class name="com.epam.test.LogoutTest" />
-			<class name="com.epam.test.CreateAndSaveMessageTest" />
-			<class name="com.epam.test.LoginTest" />
 		</classes>
 	</test> <!-- Default test -->
+	<test name="Default test2">
+		<classes>
+			<class name="com.epam.test.LoginTest" />
+		</classes>
+	</test> <!-- Default test2 -->
+	<test name="Default test3">
+		<classes>
+			<class name="com.epam.test.CreateAndSaveMessageTest" />
+		</classes>
+	</test> <!-- Default test3 -->
 </suite> <!-- Default suite -->
