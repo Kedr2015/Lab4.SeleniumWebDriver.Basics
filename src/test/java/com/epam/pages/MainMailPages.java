@@ -1,4 +1,4 @@
-package com.epam.Pages;
+package com.epam.pages;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;

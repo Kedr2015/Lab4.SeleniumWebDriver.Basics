@@ -1,4 +1,4 @@
-package com.epam.Test;
+package com.epam.test;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,9 +9,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.epam.Pages.LoginPages;
-import com.epam.Pages.MainMailPages;
 import com.epam.date.TestData;
+import com.epam.pages.LoginPages;
+import com.epam.pages.MainMailPages;
 
 /**
  * @author kedr
